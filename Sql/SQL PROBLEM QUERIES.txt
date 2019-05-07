@@ -1,0 +1,94 @@
+1)select employee.last_name,employee.job_code from employee  LEFT OUTER JOIN department  ON employee.department_number=department.department_number where 
+employee.job_code IS NULL order by employee.last_name ASC;
+
+2)select department.* from department where department_number not in(select department_number from employee);
+
+3)select employee.last_name,employee.first_name,department.department_number from employee inner join department on employee.department_number=
+department.department_number;
+
+4)select * from employee where department_number is Null or department_number not in(select department_number from department);
+
+5)select manager_employee_number from department where manager_employee_number not in (select manager_employee_number from employee);
+
+6)select employee.employee_number,department.department_number,employee.job_code from employee 
+inner join department on employee.department_number=department.department_number order by employee.job_code desc ;
+
+7)select employee_number from employee where employee_number in (select manager_employee_number from department);
+select distinct employee_number from employee Inner join department on employee.employee_number=department.manager_employee_number;
+
+8)select concat(first_name,',',last_name) as 'FullName' from employee where last_name like '%ra%'; 
+
+9)select concat(employee.first_name,'.',employee.last_name) as fullname from employee inner join department on
+employee.department_number=department.department_number where employee.salary_amount*12>35000*67 
+or employee.department_number=1;
+
+10)select concat(last_name,'.',first_name),department_number,job_code from employee where (department_number=1 or 
+department_number=2) AND (job_code=100 or job_code=101);
+
+11)select employee_number,department_number,salary_amount,row_number() 
+over (partition by department_number order by salary_amount,department_number)  
+from employee where (department_number=1 or department_number=2 or department_number=7) 
+AND (salary_amount*69>30000*69);
+
+12)select concat(first_name,'.',last_name),salary_amount from employee order by first_name ;
+
+13)select concat(last_name,'.',first_name) from employee where round(datediff(CURDATE(),hire_date)/365)>=10;
+
+14)select curdate(),current_time(),current_user(),database();
+
+15)SELECT monthname((DATE_ADD(curdate(), INTERVAL 60 DAY))),DATE_ADD(curdate(),INTERVAL 365 DAY),
+DATE_ADD(curdate(),INTERVAL 2 month);
+
+16)select concat(last_name,'.',first_name) as managers from employee where employee_number in (select manager_employee_number from department);
+
+17)select concat(last_name,'.',first_name),employee_number from employee inner join department
+on employee.employee_number=department.manager_employee_number where employee.salary_amount>20000 and budget_amount>940000;
+
+18)select concat(last_name,'.',first_name) from employee where department_number in (select department_number from department 
+where department_name like '%support%');
+
+
+19)select department_number,department_name from department where  NOT EXISTS 
+(select * from employee where employee.department_number = department.department_number);
+
+
+20)select concat(first_name,'.',last_name) as employee_name from employee where department_number=2
+
+
+21)SELECT CASE WHEN  not EXISTS(select * from employee where job_code not in(select job_code from jobtype))
+THEN 'TRUE' ELSE 'FALSE' END;
+
+
+
+22)WITH HIGH_SALARY AS 
+	(SELECT EMPLOYEE_NUMBER,DEPARTMENT_NUMBER,SALARY_AMOUNT,
+		DENSE_RANK() OVER(PARTITION BY DEPARTMENT_NUMBER ORDER BY SALARY_AMOUNT DESC) AS SAL_NUM FROM EMPLOYEE)
+SELECT EMPLOYEE_NUMBER,DEPARTMENT_NUMBER,SALARY_AMOUNT FROM HIGH_SALARY WHERE SAL_NUM=1;
+
+
+23)select employee_number,department_number,concat(last_name,'.',first_name) from employee e where 
+salary_amount>(select avg(salary_amount) from employee e2 
+where e.department_number=e2.department_number) or 
+select employee_number,department_number,concat(last_name,'.',first_name) from employee e where 
+salary_amount>ALL(select avg(salary_amount) from employee group by department_number);
+
+
+24)select employee_number from employee where exists(select * from department where department.department_number=
+employee.department_number and department_number=1); 
+
+
+25)select job_code from jobtype where job_code  not in (select job_code from employee where employee.job_code=jobtype
+.job_code);
+select job_code from jobtype where not exists (select job_code from employee 
+where employee.job_code=jobtype.job_code);
+
+
+26)select employee.employee_number,employee.department_number,employee.salary_amount from employee
+inner join department where employee.employee_number=department.manager_employee_number;
+
+
+27)select employee_number from employee where salary_amount>(select avg(salary_amount) from employee);
+
+28)select employee_number,department_number,concat(last_name,'.',first_name),salary_amount from employee e where 
+salary_amount>(select avg(salary_amount) from employee e2 
+where e.department_number=e2.department_number ) order by department_number,salary_amount desc;
