@@ -1,5 +1,5 @@
 /*SQL QUERIES FOR GIVEN PROBLEM STATEMENTS */
-Author:karthik j
+Author:karthik
 Date:02/05/2019
 
 
