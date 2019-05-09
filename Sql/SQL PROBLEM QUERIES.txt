@@ -1,3 +1,8 @@
+/*SQL QUERIES FOR GIVEN PROBLEM STATEMENTS */
+Author:karthik j
+Date:02/05/2019
+
+
 1)select employee.last_name,employee.job_code from employee  LEFT OUTER JOIN department  ON employee.department_number=department.department_number where 
 employee.job_code IS NULL order by employee.last_name ASC;
 
