@@ -16,7 +16,8 @@ class Oddnumber:
         large =0
         for i in Arrayvalues:
             if i%2==1:
-                large=i
+                if i>large:
+                    large=i
         if large:
             print "LARGEST ODD NUMBER IN THE GIVEN ARRAY", large
         else:
